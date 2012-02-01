@@ -11,7 +11,7 @@ directory structures and files already included and set up.
 
 ##Getting started##
 You can start by [downloading](https://github.com/Lullabot/drupal-boilerplate/zipball/master)
-this project. Once you download it you will fine every folder contains a readme.mk file
+this project. Once you download it you will fine every folder contains a readme.md file
 in it. This readme.md file has been extensively documented to documented what belongs
 in that specific directory.
 
