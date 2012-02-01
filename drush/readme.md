@@ -21,7 +21,11 @@ custom drushrc.php and to search our commands and aliases directory for commands
 and aliases.
 
 ###Aliases
+The aliases directory is used to store aliases specific to your project. This is a great
+place to share aliases such as _@example.staging_, _@example.live_, _@example.rc_ etc..
 
+Be cautious about not storing local specific alias because the probably wont work in
+every environment.
 
 ###Commands
 The commands directory is used to store drush commands you would like to share
