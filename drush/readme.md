@@ -41,12 +41,12 @@ page](http://drupal.org/project/registry_rebuild).
 The build command is nothing but a simple drush commands that calls other drush commands
 such as updatedb, features-revert-all, and cache-clear. The reason for the build command
 is to guarantee your deployment is always being executed in the way you intended. Here's
-what the drush command essentially translate to.
+what the drush command essentially translates to.
 
     drush updatedb
     drush features-revert-all --force
     drush cc all
 
-But instead of of calling all those commands in the same other all the time you can now
+But instead of of calling all those commands in the same order all the time you can now
 call _drush build --yes_.
     
