@@ -25,7 +25,7 @@ and aliases.
 The commands directory is used to store drush commands you would like to share
 with your entire team. This is a great place for your custom drush xyz command.
 
-By default we include the _Registry Rebuild_ and the _Build_ command.
+By default we include the __Registry Rebuild__ and the __Build__ command.
 
 
 ###Aliases
