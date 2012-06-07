@@ -16,7 +16,7 @@ to add this awesome snippet to our local drushrc.php file.
       $options['alias-path'] = $repo . '/../drush/aliases';
     }
 
-Once the above snippet in in your drushrc.php file then drush will know to read our
+Once the above snippet is in our drushrc.php file then drush will know to read our
 custom drushrc.php and to search our commands and aliases directory for commands
 and aliases.
 
@@ -24,7 +24,7 @@ and aliases.
 The aliases directory is used to store aliases specific to your project. This is a great
 place to share aliases such as _@example.staging_, _@example.live_, _@example.rc_ etc..
 
-Be cautious about not storing local specific alias because the probably wont work in
+Be cautious about not storing local specific alias because they probably wont work in
 every environment.
 
 ###Commands
