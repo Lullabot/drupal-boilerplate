@@ -5,6 +5,7 @@ docroot/sites/*/settings*.php
 
 # User Generated Content #
 ##########################
+docroot/files
 docroot/sites/*/files
 docroot/sites/*/private
 
