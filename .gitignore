@@ -1,7 +1,7 @@
 # Sensitive information #
 #########################
 # ignore configuration files that may contain
-# sensitiveinformation.
+# sensitive information.
 docroot/sites/*/settings*.php
 
 # User Generated Content #
