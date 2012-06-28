@@ -1,7 +1,6 @@
 # Sensitive information #
 #########################
-# ignore configuration files that may contain
-# sensitive information.
+# Ignore configuration files that may contain sensitive information.
 docroot/sites/*/settings*.php
 
 # User Generated Content #
@@ -20,8 +19,8 @@ docroot/sites/*/private
 
 # Packages #
 ############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
+# It's better to unpack these files and commit the raw source, git has its own
+# built in compression methods
 *.7z
 *.dmg
 *.gz
