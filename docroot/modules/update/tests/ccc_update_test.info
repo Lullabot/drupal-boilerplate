@@ -1,0 +1,11 @@
+name = CCC Update test
+description = Support module for update module testing.
+package = Testing
+core = 7.x
+hidden = TRUE
+
+; Information added by drupal.org packaging script on 2012-05-02
+version = "7.14"
+project = "drupal"
+datestamp = "1335997555"
+

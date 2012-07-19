@@ -1,0 +1,13 @@
+name = OpenID dummy provider
+description = "OpenID provider used for testing."
+package = Testing
+version = VERSION
+core = 7.x
+dependencies[] = openid
+hidden = TRUE
+
+; Information added by drupal.org packaging script on 2012-05-02
+version = "7.14"
+project = "drupal"
+datestamp = "1335997555"
+
