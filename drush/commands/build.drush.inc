@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * A Just a simple command that calls a bunch of other drush comamnds.
+ * A Just a simple command that calls a bunch of other drush commands.
  */
 
 
@@ -15,7 +15,7 @@ function build_drush_command() {
     'description' => '',
     'callback' => '_drush_build',
     'examples' => array(
-      'drush build' => 'Runs a group of drush cammands.',
+      'drush build' => 'Runs a group of drush commands.',
     ),
   );
 
