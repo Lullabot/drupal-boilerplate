@@ -31,26 +31,24 @@ every environment.
 The commands directory is used to store drush commands you would like to share
 with your entire team. This is a great place for your custom drush xyz command.
 
-By default we include the __Registry Rebuild__ and the __Build__ command.
-
-####Registry Rebuild
-Instead of trying to explain what it does. Here's a snippet from its [project
-page](http://drupal.org/project/registry_rebuild).
-
->>There are times in Drupal 7 when the registry gets hopelessly hosed and you need to rebuild the registry
- (a list of PHP classes and the files they go with). Sometimes, though, you can't do this regular
- cache-clear activity because some class is required when the system is trying to bootstrap.
-
 ####Build
-The build command is nothing but a simple drush commands that calls other drush commands
-such as updatedb, features-revert-all, and cache-clear. The reason for the build command
-is to guarantee your deployment is always being executed in the way you intended. Here's
-what the drush command essentially translates to.
+The build command is nothing but a simple drush commands that calls other drush commands such as updatedb, features-revert-all, and cache-clear. The reason for the build command is to guarantee your deployment is always being executed in the way you intended. Here's what the drush command essentially translates to.:
 
     drush updatedb
     drush features-revert-all --force
     drush cc all
 
-But instead of of calling all those commands in the same order all the time you can now
-call _drush build --yes_.
-    
+But instead of of calling all those commands in the same order all the time you can now call _drush build --y_.
+
+####Downsync
+This is a wrapper to set a couple options and then sync one environment to another. Typical usage would be to sync your staging or live environment down to your local. Here's what the drush command essentially translates to:
+
+    drush sql sync
+    drush rsync
+
+####Registry Rebuild
+Instead of trying to explain what it does. Here's a snippet from its [project
+page](http://drupal.org/project/registry_rebuild).
+
+>>There are times in Drupal 7 when the registry gets hopelessly hosed and you need to rebuild the registry (a list of PHP classes and the files they go with). Sometimes, though, you can't do this regular cache-clear activity because some class is required when the system is trying to bootstrap.
+
