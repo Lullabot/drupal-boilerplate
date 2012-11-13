@@ -64,14 +64,14 @@ and a list of variables to delete/reset, plus it sanitizes the database.
 Devify is really effective when you set command-specific settings at drushrc.php, such
 as the following:
 
-/**
- * Settings for devify command.
- */
-$command_specific['devify'] = array(
-  'enable-modules' => array('devel', 'advanced_help'),
-  'disable-modules' => array('varnish', 'memcache_admin'),
-  'delete-variables' => array('googleanalytics_account'),
-  'reset-variables' => array('site_mail' => 'local@local.com'),
-);
+    /**
+     * Settings for devify command.
+     */
+    $command_specific['devify'] = array(
+      'enable-modules' => array('devel', 'advanced_help'),
+      'disable-modules' => array('varnish', 'memcache_admin'),
+      'delete-variables' => array('googleanalytics_account'),
+      'reset-variables' => array('site_mail' => 'local@local.com'),
+    );
 
 Then you would only need to type _drush devify --yes_.
