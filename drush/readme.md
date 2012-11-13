@@ -31,7 +31,7 @@ every environment.
 The commands directory is used to store drush commands you would like to share
 with your entire team. This is a great place for your custom drush xyz command.
 
-By default we include the __Registry Rebuild__ and the __Build__ command.
+By default we include the __Registry Rebuild__, __Build__ and __Devify commands.
 
 ####Registry Rebuild
 Instead of trying to explain what it does. Here's a snippet from its [project
@@ -53,4 +53,25 @@ what the drush command essentially translates to.
 
 But instead of of calling all those commands in the same order all the time you can now
 call _drush build --yes_.
-    
+
+####Devify
+During development you will periodically pull the stating or production database to your
+local environment. There is a list of commands and variables that you normally would
+alter such as disabling caches and Update module, sanitize emails and passwords and
+delete sensitive variables. The devify command takes a list of modules to disable/enable
+and a list of variables to delete/reset, plus it sanitizes the database.
+
+Devify is really effective when you set command-specific settings at drushrc.php, such
+as the following:
+
+/**
+ * Settings for devify command.
+ */
+$command_specific['devify'] = array(
+  'enable-modules' => array('devel', 'advanced_help'),
+  'disable-modules' => array('varnish', 'memcache_admin'),
+  'delete-variables' => array('googleanalytics_account'),
+  'reset-variables' => array('site_mail' => 'local@local.com'),
+);
+
+Then you would only need to type _drush devify --yes_.
