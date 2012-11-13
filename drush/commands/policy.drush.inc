@@ -8,7 +8,7 @@
  */
 
 /**
- * Implement of drush_hook_COMMAND_validate().
+ * Implements drush_hook_COMMAND_validate().
  *
  * Prevent catastrophic braino when syncing databases.
  */
@@ -19,7 +19,7 @@ function drush_policy_sql_sync_validate($source = NULL, $destination = NULL) {
 }
 
 /**
- * Implement of drush_hook_COMMAND_validate().
+ * Implements drush_hook_COMMAND_validate().
  *
  * Prevent catastrophic braino when rsyncing files.
  */
