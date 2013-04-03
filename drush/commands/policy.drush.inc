@@ -13,7 +13,7 @@
  * Prevent catastrophic braino when syncing databases.
  */
 function drush_policy_sql_sync_validate($source = NULL, $destination = NULL) {
-  if (preg_match('/prod/', $destination)) {
+  if (preg_match('/live/', $destination)) {
     return drush_set_error(dt('You may never overwrite the production database.'));
   }
 }
@@ -24,7 +24,7 @@ function drush_policy_sql_sync_validate($source = NULL, $destination = NULL) {
  * Prevent catastrophic braino when rsyncing files.
  */
 function drush_policy_core_rsync_validate($source = NULL, $destination = NULL) {
-  if (preg_match('/prod/', $destination)) {
+  if (preg_match('/live/', $destination)) {
     return drush_set_error(dt('You may never overwrite the production files.'));
   }
 }
