@@ -19,10 +19,12 @@ $aliases['stage'] = array(
   'uri' => 'stage.example.com',
   'root' => '/var/www/stage.example.com/docroot',
   'remote-host' => 'example.com',
+  'remote-user' => 'user',
 );
 
 $aliases['live'] = array(
   'uri' => 'example.com',
   'root' => '/var/www/stage.example.com/docroot',
   'remote-host' => 'example.com',
+  'remote-user' => 'user',
 );
