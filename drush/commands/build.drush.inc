@@ -44,7 +44,10 @@ function build_drush_command() {
  */
 function _drush_build() {
   drush_invoke('updatedb');
-  drush_invoke('features-revert-all', array('force' => TRUE));
+  drush_invoke_process('@self', 'features-revert-all', array(), array(
+    'force' => TRUE,
+    'yes' => TRUE,
+  ));
   drush_invoke('cc', array('type' => 'all'));
   drush_log(dt('Built!'), 'success');
 }
