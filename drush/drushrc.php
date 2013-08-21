@@ -7,7 +7,7 @@
  * If you have some configuration options that are specific to a
  * particular version of drush, then you may place them in a file
  * called drush5rc.php.  The version-specific file is loaded in
- * addtion to, and after, the general-purpose drushrc.php file.
+ * addition to, and after, the general-purpose drushrc.php file.
  * Version-specific configuration files can be placed in any of the
  * locations specified above.
  *
