@@ -9,6 +9,10 @@ docroot/files
 docroot/sites/*/files
 docroot/sites/*/private
 
+# Vagrant Files #
+#################
+.vagrant
+
 # Compiled source #
 ###################
 *.com
