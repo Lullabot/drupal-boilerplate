@@ -1,4 +1,5 @@
-#Patches
+patches
+-------
 
 Patch documentation should be in the following format:
 
@@ -13,5 +14,3 @@ Example:
   * Add CSS class to read-more link on trimmed text field
   * http://drupal.org/node/1557926
   * http://drupal.org/files/views-more_link_class-1557926.patch
-
----
