@@ -1,3 +1,6 @@
+scripts
+-------
+
 Any custom project-specific scripts can be placed here.
 
 Any PHP scripts can be run by using the
