@@ -58,9 +58,9 @@ function drush_casperjs($tests = NULL) {
   $args = array();
   foreach (drush_get_original_cli_args_and_options() as $arg) {
     // Don't pass some options through.
-    if (strpos('--test-root', $arg) !== FALSE
-      || strpos('--simulate', $arg) !== FALSE
-      || strpos('--includes', $arg) !== FALSE) {
+    if (strpos($arg, '--test-root') !== FALSE
+      || strpos($arg, '--simulate') !== FALSE
+      || strpos($arg, '--includes') !== FALSE) {
       continue;
     }
     $args[] = drush_escapeshellarg($arg);
