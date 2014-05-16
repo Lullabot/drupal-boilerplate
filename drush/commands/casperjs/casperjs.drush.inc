@@ -20,7 +20,7 @@ function casperjs_drush_command() {
   return $items;
 }
 
-function drush_casperjs() {
+function drush_casperjs($tests = NULL) {
   $cookie_file = drush_tempnam('casper-cookie-');
   $uri = drush_get_context('DRUSH_SELECTED_URI');
 
@@ -30,15 +30,27 @@ function drush_casperjs() {
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
 
   if ($root = drush_get_option('test-root')) {
-    // @todo Ensure that test-root option doesn't get passed through.
-    $command .= ' --root=' . drush_escapeshellarg($root);
+    if (!empty($tests)) {
+      // @todo Ensure that test-root option doesn't get passed through.
+      $command .= ' --root=' . drush_escapeshellarg($root);
+    }
+    else {
+      $command .= ' ' . drush_escapeshellarg($root);
+    }
   }
 
-  $args = drush_get_original_cli_args_and_options();
-  for ($x = 0; $x < count($args); $x++) {
-    $args[$x] = drush_escapeshellarg($args[$x]);
+  $args = array();
+  foreach (drush_get_original_cli_args_and_options() as $arg) {
+    // Don't pass some options through.
+    if (strpos('--test-root', $arg) !== FALSE
+      || strpos('--simulate', $arg) !== FALSE) {
+      continue;
+    }
+    $args[] = drush_escapeshellarg($arg);
   }
-  $command .= ' ' . implode(' ', $args);
+  if (!empty($args)) {
+    $command .= ' ' . implode(' ', $args);
+  }
 
   echo $command . "\n";
   $result = drush_shell_proc_open($command);
