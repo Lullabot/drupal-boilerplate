@@ -24,7 +24,7 @@ function drush_casperjs() {
   $cookie_file = drush_tempnam('casper-cookie-');
   $uri = drush_get_context('DRUSH_SELECTED_URI');
 
-  $command = 'capserjs test';
+  $command = 'casperjs test';
   $command .= ' --cookies-file=' . drush_escapeshellarg($cookie_file);
   $command .= ' --url=' . drush_escapeshellarg($uri);
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
