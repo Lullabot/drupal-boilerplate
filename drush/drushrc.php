@@ -51,7 +51,7 @@
 // Drush shell aliases act similar to git aliases.
 // See https://git.wiki.kernel.org/index.php/Aliases#Advanced.
 // For best success, define these in drushrc files located in #6-3 above.
-// More information on shell aliases can be found in 
+// More information on shell aliases can be found in
 // `drush topic docs-shell-aliases`
 # $options['shell-aliases']['pull'] = '!git pull'; // We've all done it.
 # $options['shell-aliases']['pulldb'] = '!git pull && drush updatedb';
@@ -233,4 +233,7 @@
 // you can use the regular shell command by typing in the full path
 // to the command (e.g. /bin/grep).
 # $command_specific['core-cli'] = array('override' => 'help,dd,sa');
+
+// Provide a default directory to run on drush casperjs
+# $command_specific['casperjs']['test-root'] = str_replace('drush', 'tests/casperjs', dirname(__FILE__));
 
