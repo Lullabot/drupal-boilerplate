@@ -13,6 +13,9 @@ function casperjs_drush_command() {
     ),
     'options' => array(
       'test-root' => 'The directory that contains the test files.',
+      'url' => 'The base URL to use for test requests. Defaults to the URL set by Drush or the current Drush alias.',
+      'includes' => 'Comma-separated list of files to include before each test file execution.',
+      'cookies-file' => 'Sets the file name to store the persistent cookies. If not provided a random file in the system temporary directory will be used.',
     ),
     'allow-additional-options' => TRUE,
   );
@@ -23,15 +26,21 @@ function casperjs_drush_command() {
 function drush_casperjs($tests = NULL) {
 
   $command = 'casperjs test --verbose';
+
   if (!drush_get_option('cookies-file')) {
     $cookie_file = drush_tempnam('casper-cookie-');
     $command .= ' --cookies-file=' . drush_escapeshellarg($cookie_file);
   }
+
   if (!drush_get_option('url')) {
     $uri = drush_get_context('DRUSH_SELECTED_URI');
     $command .= ' --url=' . drush_escapeshellarg($uri);
   }
+
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
+  if ($includes = drush_get_option('includes')) {
+    $command .= ',' . $includes;
+  }
 
   if ($root = drush_get_option('test-root')) {
     if (!empty($tests)) {
@@ -50,7 +59,8 @@ function drush_casperjs($tests = NULL) {
   foreach (drush_get_original_cli_args_and_options() as $arg) {
     // Don't pass some options through.
     if (strpos('--test-root', $arg) !== FALSE
-      || strpos('--simulate', $arg) !== FALSE) {
+      || strpos('--simulate', $arg) !== FALSE
+      || strpos('--includes', $arg) !== FALSE) {
       continue;
     }
     $args[] = drush_escapeshellarg($arg);
