@@ -21,12 +21,16 @@ function casperjs_drush_command() {
 }
 
 function drush_casperjs($tests = NULL) {
-  $cookie_file = drush_tempnam('casper-cookie-');
-  $uri = drush_get_context('DRUSH_SELECTED_URI');
 
-  $command = 'casperjs test';
-  $command .= ' --cookies-file=' . drush_escapeshellarg($cookie_file);
-  $command .= ' --url=' . drush_escapeshellarg($uri);
+  $command = 'casperjs test --verbose';
+  if (!drush_get_option('cookies-file')) {
+    $cookie_file = drush_tempnam('casper-cookie-');
+    $command .= ' --cookies-file=' . drush_escapeshellarg($cookie_file);
+  }
+  if (!drush_get_option('url')) {
+    $uri = drush_get_context('DRUSH_SELECTED_URI');
+    $command .= ' --url=' . drush_escapeshellarg($uri);
+  }
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
 
   if ($root = drush_get_option('test-root')) {
