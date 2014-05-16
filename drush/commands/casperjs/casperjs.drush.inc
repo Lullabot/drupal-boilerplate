@@ -35,6 +35,9 @@ function drush_casperjs($tests = NULL) {
       $command .= ' --root=' . drush_escapeshellarg($root);
     }
     else {
+      // If no specific test files have been passed in, then instead of using
+      // --root we should just pass in this directory as an argument so that
+      // casperjs can find all tests files itself.
       $command .= ' ' . drush_escapeshellarg($root);
     }
   }
