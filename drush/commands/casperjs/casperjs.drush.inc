@@ -22,7 +22,6 @@ function drush_casperjs($tests = NULL) {
   $uri = drush_get_context('DRUSH_SELECTED_URI');
 
   $command = 'capserjs test';
-  $command .= ' --verbose';
   $command .= ' --cookies-file=' . drush_escapeshellarg($cookie_file);
   $command .= ' --url=' . drush_escapeshellarg($uri);
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
