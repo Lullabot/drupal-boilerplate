@@ -17,7 +17,6 @@ if ($success) {
   $options['config'] = $repo . '/drush/drushrc.php';
   $options['include'] = $repo . '/drush/commands';
   $options['alias-path'] = $repo . '/drush/aliases';
-  drush_set_context('DRUSH_REPO_ROOT', $repo);
 }
 ```
 

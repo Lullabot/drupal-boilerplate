@@ -9,7 +9,10 @@ function casperjs_drush_command() {
     'callback' => 'drush_casperjs',
     'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_SITE,
     'arguments' => array(
-      'tests' => 'A comma separated list of tests to run. If not provided, all tests will be run.',
+      'tests' => 'A list of tests to run separated by a space. If not provided, all tests will be run.',
+    ),
+    'options' => array(
+      'test-root' => 'The directory that contains the test files.',
     ),
     'allow-additional-options' => TRUE,
   );
@@ -17,7 +20,7 @@ function casperjs_drush_command() {
   return $items;
 }
 
-function drush_casperjs($tests = NULL) {
+function drush_casperjs() {
   $cookie_file = drush_tempnam('casper-cookie-');
   $uri = drush_get_context('DRUSH_SELECTED_URI');
 
@@ -26,24 +29,12 @@ function drush_casperjs($tests = NULL) {
   $command .= ' --url=' . drush_escapeshellarg($uri);
   $command .= ' --includes=' . drush_escapeshellarg(dirname(__FILE__) . '/common.js');
 
-  if ($root = drush_get_context('DRUSH_REPO_ROOT')) {
+  if ($root = drush_get_option('test-root')) {
+    // @todo Ensure that test-root option doesn't get passed through.
     $command .= ' --root=' . drush_escapeshellarg($root);
-  }
-  else {
-    $root = drush_get_option('root') ? drush_get_option('root') : getcwd();
-    $command .= ' --root=' . drush_escapeshellarg($root);
-  }
-
-  if ($tests) {
-    foreach (explode(',', $tests) as $test) {
-      $command .= ' ' . drush_escapeshellarg('tests/' . $test);
-    }
   }
 
   $args = drush_get_original_cli_args_and_options();
-  if (!empty($tests)) {
-    array_shift($args);
-  }
   for ($x = 0; $x < count($args); $x++) {
     $args[$x] = drush_escapeshellarg($args[$x]);
   }
