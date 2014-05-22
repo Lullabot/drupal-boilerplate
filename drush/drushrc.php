@@ -237,11 +237,11 @@
 /**
  * Load local development override configuration, if available.
  *
- * Use drushrc.local.php to override Drsuh configuration on secondary (staging,
+ * Use drushrc.local.php to override Drush configuration on secondary (staging,
  * development, etc) installations of this site.
  *
  * Keep this code block at the end of this file to take full effect.
  */
 if (file_exists(dirname(__FILE__) . '/drushrc.local.php')) {
-  include dirname(__FILE__) . '/drushrc.local.php');
+  include_once dirname(__FILE__) . '/drushrc.local.php';
 }
