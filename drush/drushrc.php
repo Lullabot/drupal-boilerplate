@@ -51,7 +51,7 @@
 // Drush shell aliases act similar to git aliases.
 // See https://git.wiki.kernel.org/index.php/Aliases#Advanced.
 // For best success, define these in drushrc files located in #6-3 above.
-// More information on shell aliases can be found in 
+// More information on shell aliases can be found in
 // `drush topic docs-shell-aliases`
 # $options['shell-aliases']['pull'] = '!git pull'; // We've all done it.
 # $options['shell-aliases']['pulldb'] = '!git pull && drush updatedb';
@@ -234,3 +234,14 @@
 // to the command (e.g. /bin/grep).
 # $command_specific['core-cli'] = array('override' => 'help,dd,sa');
 
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use drushrc.local.php to override Drush configuration on secondary (staging,
+ * development, etc) installations of this site.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+if (file_exists(dirname(__FILE__) . '/drushrc.local.php')) {
+  include_once dirname(__FILE__) . '/drushrc.local.php';
+}
