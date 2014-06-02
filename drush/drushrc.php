@@ -234,6 +234,17 @@
 // to the command (e.g. /bin/grep).
 # $command_specific['core-cli'] = array('override' => 'help,dd,sa');
 
-// Provide a default directory to run on drush casperjs
+// Provide a default directory to run on drush casperjs.
 # $command_specific['casperjs']['test-root'] = str_replace('drush', 'tests/casperjs', dirname(__FILE__));
 
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use drushrc.local.php to override Drush configuration on secondary (staging,
+ * development, etc) installations of this site.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+if (file_exists(dirname(__FILE__) . '/drushrc.local.php')) {
+  include_once dirname(__FILE__) . '/drushrc.local.php';
+}
