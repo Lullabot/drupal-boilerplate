@@ -234,6 +234,9 @@
 // to the command (e.g. /bin/grep).
 # $command_specific['core-cli'] = array('override' => 'help,dd,sa');
 
+// Provide a default directory to run on drush casperjs.
+# $command_specific['casperjs']['test-root'] = str_replace('drush', 'tests/casperjs', dirname(__FILE__));
+
 /**
  * Load local development override configuration, if available.
  *
