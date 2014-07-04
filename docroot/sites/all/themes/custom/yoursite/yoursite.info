@@ -1,0 +1,10 @@
+name = Example Starter Theme
+description = Change Me!.
+core = 7.x
+
+regions[content] = Content
+
+features[] = name
+features[] = favicon
+
+stylesheets[all][] = css/style.css

@@ -16,6 +16,8 @@ function lullabot_boilerplate_install()
   // Set the admin theme.
   variable_set('admin_theme', 'yoursite_shiny');
   variable_set('node_admin_theme', 1);
+  variable_set('theme_default', 'yoursite');
+  
 
   // Add a text filter.
   $filtered_html = array(
