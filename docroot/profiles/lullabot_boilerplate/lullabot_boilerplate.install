@@ -1,0 +1,293 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the Lullabot Boilerplate installation profile.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Performs actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function lullabot_boilerplate_install()
+{
+  // Set the admin theme.
+  variable_set('admin_theme', 'yoursite_shiny');
+  variable_set('node_admin_theme', 1);
+
+  // Add a text filter.
+  $filtered_html = array(
+    'format' => 'filtered_html',
+    'name' => 'Filtered HTML',
+    'status' => 1,
+    'weight' => 0,
+    'filters' => array(
+      'htmlpurifier_basic' => array(
+        'weight' => 0,
+        'status' => 1,
+        'settings' => array(
+          'htmlpurifier_help' => 1,
+          'htmlpurifier_basic_config' => array(
+            'Attr.EnableID' => 0,
+            'AutoFormat.AutoParagraph' => 1,
+            'AutoFormat.Linkify' => 1,
+            'AutoFormat.RemoveEmpty' => 1,
+            'HTML.Allowed' => 'h2,h3,h4,h5,h6,a[href],p,strong,em,ul,ol,li,br,blockquote',
+            'HTML.ForbiddenAttributes' => '',
+            'HTML.ForbiddenElements' => '',
+            'HTML.SafeObject' => 0,
+            'Output.FlashCompat' => 0,
+            'URI.DisableExternalResources' => 0,
+            'URI.DisableResources' => 0,
+            'Null_URI.Munge' => 1,
+          ),
+        ),
+      ),
+    ),
+  );
+
+  $filtered_html = (object)$filtered_html;
+  filter_format_save($filtered_html);
+
+  // Add a basic page node.
+  $types = array(
+    array(
+      'type' => 'page',
+      'name' => st('Basic page'),
+      'base' => 'node_content',
+      'description' => st("Use <em>basic pages</em> for your static content, such as an 'About us' page."),
+      'custom' => 1,
+      'modified' => 1,
+      'locked' => 0,
+    ),
+  );
+
+  foreach ($types as $type) {
+    $type = node_type_set_defaults($type);
+    node_type_save($type);
+    // Add a body field.
+    $field = field_info_field('body');
+    $instance = field_info_instance('node', 'body', $type->type);
+    if (empty($field)) {
+      $field = array(
+        'field_name' => 'body',
+        'type' => 'text_long',
+        'entity_types' => array('node'),
+      );
+      field_create_field($field);
+    }
+    if (empty($instance)) {
+      $instance = array(
+        'field_name' => 'body',
+        'entity_type' => 'node',
+        'bundle' => $type->type,
+        'label' => 'Body',
+        'widget' => array('type' => 'text_textarea'),
+        'settings' => array('text_processing' => 1),
+        'display' => array(
+          'default' => array(
+            'label' => 'hidden',
+            'type' => 'text_default',
+          ),
+        ),
+      );
+      field_create_instance($instance);
+    }
+  }
+
+  // Default "Basic page" to not be promoted.
+  variable_set('node_options_page', array('status', 'revision'));
+
+  // Don't display date and author information for "Basic page" nodes by default.
+  variable_set('node_submitted_page', FALSE);
+
+  // Don't allow anyone to create accounts.
+  variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
+
+  // Enable default permissions for system roles.
+  $filtered_html_permission = filter_permission_name($filtered_html);
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', $filtered_html_permission));
+
+  // Add a Linkit Profile.
+  $linkit_profile = new LinkitProfile();
+  $linkit_profile->disabled = FALSE; /* Edit this to true to make a default linkit_profile disabled initially */
+  $linkit_profile->api_version = 1;
+  $linkit_profile->name = 'filtered_html';
+  $linkit_profile->admin_title = 'Filtered HTML';
+  $linkit_profile->admin_description = '';
+  $linkit_profile->profile_type = '1';
+  $linkit_profile->data = array(
+    'text_formats' => array(
+      'filtered_html' => 'filtered_html',
+      'plain_text' => 0,
+    ),
+    'search_plugins' => array(
+      'entity:node' => array(
+        'enabled' => 1,
+        'weight' => '-10',
+      ),
+      'entity:file' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'entity:user' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+    ),
+    'entity:node' => array(
+      'result_description' => '',
+      'include_unpublished' => 0,
+    ),
+    'entity:file' => array(
+      'result_description' => '',
+      'show_scheme' => 0,
+      'group_by_scheme' => 0,
+      'image_extra_info' => array(
+        'thumbnail' => 'thumbnail',
+        'dimensions' => 'dimensions',
+      ),
+    ),
+    'entity:user' => array(
+      'result_description' => '',
+    ),
+    'insert_plugin' => array(
+      'url_method' => '2',
+    ),
+    'attribute_plugins' => array(
+      'accesskey' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'target' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'class' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'rel' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'id' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+      'title' => array(
+        'enabled' => 0,
+        'weight' => '-10',
+      ),
+    ),
+    'autocomplete' => array(
+      'charLimit' => '3',
+      'wait' => '350',
+      'remoteTimeout' => '10000',
+    ),
+  );
+
+  ctools_export_crud_save('linkit_profiles', $linkit_profile);
+
+  // Remove unused CKEditor profiles.
+  module_load_include('inc', 'ckeditor', 'includes/ckeditor.admin');
+  $ckeditor_profiles = array(
+    array('name' => 'Advanced'),
+    array('name' => 'Full'),
+  );
+  foreach ($ckeditor_profiles as $ckeditor_profile) {
+    $form_state = array();
+    $form_state['clicked_button']['#id'] = 'delete';
+    drupal_form_submit('ckeditor_admin_profile_delete_form', $form_state, (object)$ckeditor_profile);
+  }
+
+  // Create a new CKEditor profile.
+
+  $ckeditor_settings = array(
+    'ss' => '2',
+    'toolbar' => '[
+        [\'Bold\',\'Italic\',\'Blockquote\'],
+        [\'BulletedList\',\'NumberedList\'],
+        [\'linkit\',\'Unlink\',\'Anchor\'],
+        [\'Format\'],
+        [\'Undo\',\'Redo\'],
+        [\'SpellChecker\',\'Scayt\']
+    ]',
+    'expand' => 't',
+    'default' => 't',
+    'show_toggle' => 't',
+    'uicolor' => 'default',
+    'uicolor_user' => 'default',
+    'width' => '100%',
+    'lang' => 'en',
+    'auto_lang' => 't',
+    'language_direction' => 'default',
+    'allowed_content' => 't',
+    'extraAllowedContent' => '',
+    'enter_mode' => 'p',
+    'shift_enter_mode' => 'br',
+    'font_format' => 'p;h2;h3;h4;h5;h6',
+    'custom_formatting' => 'f',
+    'formatting' =>
+      array(
+        'custom_formatting_options' =>
+          array(
+            'indent' => 'indent',
+            'breakBeforeOpen' => 'breakBeforeOpen',
+            'breakAfterOpen' => 'breakAfterOpen',
+            'breakAfterClose' => 'breakAfterClose',
+            'breakBeforeClose' => 0,
+            'pre_indent' => 0,
+          ),
+      ),
+    'css_mode' => 'theme',
+    'css_path' => '',
+    'css_style' => 'theme',
+    'styles_path' => '',
+    'filebrowser' => 'none',
+    'filebrowser_image' => '',
+    'filebrowser_flash' => '',
+    'UserFilesPath' => '%b%f/',
+    'UserFilesAbsolutePath' => '%d%b%f/',
+    'forcePasteAsPlainText' => 't',
+    'html_entities' => 'f',
+    'scayt_autoStartup' => 'f',
+    'theme_config_js' => 'f',
+    'js_conf' => '',
+    'loadPlugins' =>
+      array(
+        'linkit' =>
+          array(
+            'name' => 'linkit',
+            'desc' => 'Support for Linkit module',
+            'path' => '%base_path%sites/all/modules/contrib/linkit/editors/ckeditor/',
+            'buttons' =>
+              array(
+                'linkit' =>
+                  array(
+                    'label' => 'Linkit',
+                    'icon' => 'linkit.png',
+                  ),
+              ),
+          ),
+      ),
+
+  );
+
+  db_insert('ckeditor_settings')
+    ->fields(array(
+     "name" => 'Filtered_HTML',
+     "settings" => serialize($ckeditor_settings),
+    ))
+  ->execute();
+
+  db_insert('ckeditor_input_format')
+    ->fields(array(
+      "name" => 'Filtered_HTML',
+      "format" => 'filtered_html'
+    ))
+    ->execute();
+}

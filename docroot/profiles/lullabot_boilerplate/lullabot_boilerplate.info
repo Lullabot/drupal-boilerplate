@@ -1,0 +1,10 @@
+name = Lullabot Boilerplate
+description = Installs some basic editorial tools.
+core = 7.x
+
+dependencies[] = htmlpurifier
+dependencies[] = libraries
+dependencies[] = navbar
+dependencies[] = ckeditor
+dependencies[] = linkit
+dependencies[] = menu
