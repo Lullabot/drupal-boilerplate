@@ -17,4 +17,5 @@ Then install Drupal, selecting the "Lullabot Boilerplate" profile. This will giv
 * Responsive admin theme (named "yoursite_shiny" - please edit this for your own site)
 *  CKEditor with a HTML Purifier based filter and Linkit
 *  Basic "Page" content type
+*  A blank theme with automation tools already configured
 
