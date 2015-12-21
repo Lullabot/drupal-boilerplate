@@ -59,7 +59,7 @@ But instead of of calling all those commands in the same order all the time you 
 call _drush build --yes_.
 
 ####Devify
-During development you will periodically pull the stating or production database to your
+During development you will periodically pull the staging or production database to your
 local environment. There is a list of commands and variables that you normally would
 alter such as disabling caches and Update module, sanitize emails and passwords and
 delete sensitive variables. The devify command takes a list of modules to disable/enable
