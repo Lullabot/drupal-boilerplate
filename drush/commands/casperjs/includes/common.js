@@ -178,3 +178,15 @@ casper.boilerVariableGet = function(key, defaultValue) {
 if (casper.boilerVariableGet('BOILER_TEST_CAPTURE')) {
   casper.test.comment('Capturing of screenshots and markup is enabled.');
 }
+
+/**
+ * Generate a random string.
+ *
+ * @param int len
+ *   Length of the string to generate.
+ * @return
+ *   A random string of characters of the specified length.
+ */
+casper.randomString = casper.randomString || function(len) {
+  return new Array(256).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).substring(0, len)
+};
