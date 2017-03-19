@@ -1,0 +1,50 @@
+.yoursite-shiny__node-edit__sidebar #edit-additional-settings {
+  border: 0;
+  border-top: 2px solid #ccc;
+  margin: 0;
+  padding: 24px 0 0;
+  padding: 1.5rem 0 0;
+}
+
+.yoursite-shiny__node-edit__sidebar #edit-additional-settings > .fieldset-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.yoursite-shiny__node-edit__sidebar #edit-additional-settings > .fieldset-wrapper fieldset:first-child {
+  margin-top: 0;
+}
+
+@media (min-width: 1030px) {
+  .yoursite-shiny__node-edit__main,
+  .yoursite-shiny__node-edit__sidebar {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .yoursite-shiny__node-edit__main {
+    float: left;
+    padding-right: 8px;
+    padding-right: 0.5rem;
+    width: 66.666%;
+  }
+
+  .yoursite-shiny__node-edit__sidebar {
+    float: left;
+    padding-left: 8px;
+    padding-left: 0.5rem;
+    width: 33.333%
+  }
+
+  .yoursite-shiny__node-edit__sidebar .node-form-author input[type=text],
+  .yoursite-shiny__node-edit__sidebar .menu-link-form input[type=text] {
+    max-width: 0;
+    min-width: 100%;
+  }
+
+  .yoursite-shiny__node-edit__sidebar #edit-additional-settings {
+    border: 0;
+    padding: 0;
+  }
+}

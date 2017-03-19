@@ -1,0 +1,6 @@
+name = [Your-Site] Shiny
+description = This is a sub-theme of Shiny, with a two-column node form. Edit this theme for your own admin interface.
+core = 7.x
+base theme = shiny
+
+stylesheets[all][] = yoursite-shiny.css
